@@ -1,0 +1,31 @@
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  align-self: flex-start;
+}
+
+.detailsbox {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 0;
+  list-style-type: none;
+}
+
+.details {
+  text-align: center;
+  width: 120px;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  cursor: pointer;
+}

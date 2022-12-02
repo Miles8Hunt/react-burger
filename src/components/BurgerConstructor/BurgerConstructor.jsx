@@ -1,13 +1,29 @@
+import React from 'react';
 import styles from './BurgerConstructor.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
+import Modal from '../Modal/Modal';
+import OrderDetails from '../OrderDetails/OrderDetails';
+import PropTypes from 'prop-types';
+import ingredientsType from '../../utils/types';
 import bun01 from '../../images/bun-01.svg';
-import ingredients from '../utils/data.js';
 
-function BurgerConstructor() {
+function BurgerConstructor({ ingredients }) {
+
+  const [orderDetailsOpen, setOrderDetailsOpen] = React.useState(false);
+
+  function openModal() {
+    setOrderDetailsOpen(true);
+  };
+  function closeModal () {
+    setOrderDetailsOpen(false);
+  };
+  function closeModalByEsc (evt) {
+    evt.key === "Escape" && closeModal();
+  };
+
   return (
     <section className={`${styles.section} mt-25 pl-6`}>
       <div className={styles.list}>
@@ -60,10 +76,20 @@ function BurgerConstructor() {
             <CurrencyIcon type="primary" />
           </div>
         </div>
-        <Button type="primary" size="large" htmlType='button'>Оформить заказ</Button>
+        <Button type="primary" size="large" htmlType='button' onClick={openModal}>Оформить заказ</Button>
       </div> 
+
+      {orderDetailsOpen &&
+        <Modal onOverlayClick={closeModal} onEscKeydown={closeModalByEsc}>
+          <OrderDetails  closeModal={closeModal} />
+        </Modal> 
+      }    
     </section>
   )
 }
+
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientsType).isRequired,
+};
 
 export default BurgerConstructor
