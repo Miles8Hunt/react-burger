@@ -20,9 +20,6 @@ function BurgerConstructor({ ingredients }) {
   function closeModal () {
     setOrderDetailsOpen(false);
   };
-  function closeModalByEsc (evt) {
-    evt.key === "Escape" && closeModal();
-  };
 
   return (
     <section className={`${styles.section} mt-25 pl-6`}>
@@ -80,7 +77,7 @@ function BurgerConstructor({ ingredients }) {
       </div> 
 
       {orderDetailsOpen &&
-        <Modal onOverlayClick={closeModal} onEscKeydown={closeModalByEsc}>
+        <Modal closeModal={closeModal}>
           <OrderDetails  closeModal={closeModal} />
         </Modal> 
       }    

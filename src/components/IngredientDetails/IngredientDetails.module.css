@@ -22,10 +22,3 @@
   text-align: center;
   width: 120px;
 }
-
-.closeIcon {
-  position: absolute;
-  top: 40px;
-  right: 40px;
-  cursor: pointer;
-}

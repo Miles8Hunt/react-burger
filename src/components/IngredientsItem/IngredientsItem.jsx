@@ -16,9 +16,6 @@ function IngredientsItem({ ingredient }) {
   function closeModal () {
     setIngredientDetailsOpen(false);
   }
-  function closeModalByEsc (evt) {
-    evt.key === "Escape" && closeModal();
-  }
 
   return(
     <>
@@ -33,7 +30,7 @@ function IngredientsItem({ ingredient }) {
       </li>
 
       {isIngredientDetailsOpen &&
-        <Modal onOverlayClick={closeModal} onEscKeydown={closeModalByEsc}>
+        <Modal closeModal={closeModal}>
           <IngredientDetails
             closeModal={closeModal}      
             ingredient={ingredient}
