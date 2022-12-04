@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import IngredientsItem from '../IngredientsItem/IngredientsItem';
+import PropTypes from 'prop-types';
+import ingredientsType from '../../utils/types';
 
-import ingredients from '../utils/data.js';
 
-
-function BurgerIngredients() {
+function BurgerIngredients({ ingredients }) {
 
   const [current, setCurrent] = React.useState('one')
 
@@ -39,15 +38,7 @@ function BurgerIngredients() {
             ingredients.map((ingredient) => {
               if(ingredient.type === 'bun')
               return (
-                <li className={styles.item} key={ingredient._id}>
-                  <Counter count={1} size="default" />
-                  <img src={ingredient.image} alt={ingredient.name}></img>
-                  <div className={`${styles.price} mt-2 mb-2`}>
-                    <p className="text text_type_digits-default">{ingredient.price}</p>
-                    <CurrencyIcon type="primary" />
-                  </div>
-                  <p className={`${styles.name} text text_type_main-default`}>{ingredient.name}</p>
-                </li>
+                <IngredientsItem key={ingredient._id} ingredient={ingredient} />   
               )
             })
           }
@@ -59,15 +50,7 @@ function BurgerIngredients() {
             ingredients.map((ingredient) => {
               if(ingredient.type === 'sauce')
               return (
-                <li className={styles.item} key={ingredient._id}>
-                  <Counter count={1} size="default" />
-                  <img src={ingredient.image} alt={ingredient.name}></img>
-                  <div className={`${styles.price} mt-2 mb-2`}>
-                    <p className="text text_type_digits-default">{ingredient.price}</p>
-                    <CurrencyIcon type="primary" />
-                  </div>
-                  <p className={`${styles.name} text text_type_main-default`}>{ingredient.name}</p>
-                </li>
+                <IngredientsItem key={ingredient._id} ingredient={ingredient} /> 
               )
             })
           }
@@ -79,15 +62,7 @@ function BurgerIngredients() {
             ingredients.map((ingredient) => {
               if(ingredient.type === 'main')
               return (
-                <li className={styles.item} key={ingredient._id}>
-                  <Counter count={1} size="default" />
-                  <img src={ingredient.image} alt={ingredient.name}></img>
-                  <div className={`${styles.price} mt-2 mb-2`}>
-                    <p className="text text_type_digits-default">{ingredient.price}</p>
-                    <CurrencyIcon type="primary" />
-                  </div>
-                  <p className={`${styles.name} text text_type_main-default`}>{ingredient.name}</p>
-                </li>
+                <IngredientsItem key={ingredient._id} ingredient={ingredient} /> 
               ) 
             })
           }
@@ -96,5 +71,9 @@ function BurgerIngredients() {
     </section>
   )
 }
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientsType).isRequired,
+};
 
 export default BurgerIngredients
