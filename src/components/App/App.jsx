@@ -1,36 +1,57 @@
 import React from 'react';
 import styles from './App.module.css';
+import { getIngredients } from '../../utils/api';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstuctor from '../BurgerConstructor/BurgerConstructor';
+import IngredientsContext from '../../services/ingredientContext';
+import ConstructorContext from '../../services/constructorContext';
+
 
 function App() {
 
-  const api = 'https://norma.nomoreparties.space/api/ingredients';
+  const initialState = {
+    bun: [], 
+    main: []
+  }
+  
+  function reducer(state, action) {
+    switch (action.type) {
+      case "add":
+        if(action.payload.type === 'bun') {
+          return {
+            ...state,
+            bun: action.payload,
+          };
+        }
+        return {
+          ...state,
+          main: [...state.main, action.payload]
+        }
+      default:
+        return {...state} 
+    }
+  }
+  
+  const [constructorState, constructorDispatch] = React.useReducer(reducer, initialState);
 
   const [data, setData] = React.useState([]);
-
+  
   React.useEffect(() => {
-    fetch(api)
-      .then(res => {
-        if(res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
-      .then(json => setData(json.data))
-      .catch((error) => {
-        console.log(`Ошибка - ${error}`);
-      })  
+    getIngredients(setData)  
   }, []);
 
   return (
     <div className={styles.page}>  
       <AppHeader />
-      <main className={styles.main}>
-        <BurgerIngredients ingredients={data} />
-        <BurgerConstuctor ingredients={data} />
-      </main>
+      <IngredientsContext.Provider value={data}>
+        <ConstructorContext.Provider value={{constructorState, constructorDispatch}}>
+          <main className={styles.main}>
+            <BurgerIngredients />
+            <BurgerConstuctor />
+          </main>
+        </ConstructorContext.Provider> 
+      </IngredientsContext.Provider>
     </div>
   )
 };

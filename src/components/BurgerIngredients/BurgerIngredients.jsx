@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import IngredientsContext from '../../services/ingredientContext';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
-import PropTypes from 'prop-types';
-import ingredientsType from '../../utils/types';
 
 
-function BurgerIngredients({ ingredients }) {
+function BurgerIngredients() {
 
-  const [current, setCurrent] = React.useState('one')
+  const ingredients = React.useContext(IngredientsContext);
+
+  const [current, setCurrent] = React.useState('one');
 
   const handlerScroll = (id) => {
     setCurrent(id);
@@ -71,9 +72,5 @@ function BurgerIngredients({ ingredients }) {
     </section>
   )
 }
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientsType).isRequired,
-};
 
 export default BurgerIngredients
