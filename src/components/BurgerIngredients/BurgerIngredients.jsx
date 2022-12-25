@@ -1,18 +1,31 @@
 import React from 'react';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import IngredientsContext from '../../services/ingredientContext';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
-import PropTypes from 'prop-types';
-import ingredientsType from '../../utils/types';
 
 
-function BurgerIngredients({ ingredients }) {
+function BurgerIngredients() {
 
-  const [current, setCurrent] = React.useState('one')
+  const ingredients = React.useContext(IngredientsContext);
 
-  const handlerScroll = (id) => {
+  const [current, setCurrent] = React.useState('one');
+
+  const bun = React.useRef(null);
+  const sauce = React.useRef(null);
+  const main = React.useRef(null);
+
+  const bunScroll = (id) => {
     setCurrent(id);
-    document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" })
+    bun.current.scrollIntoView({ behavior: "smooth" })
+  }
+  const sauceScroll = (id) => {
+    setCurrent(id);
+    sauce.current.scrollIntoView({ behavior: "smooth" })
+  } 
+  const mainScroll = (id) => {
+    setCurrent(id);
+    main.current.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
@@ -20,19 +33,19 @@ function BurgerIngredients({ ingredients }) {
 
       <h1 className={`text text_type_main-large mt-10 mb-5`}>Соберите бургер</h1>
       <div className={styles.switcher}>
-        <Tab value="one" active={current === 'one'} onClick={handlerScroll}>
+        <Tab value="one" active={current === 'one'} onClick={bunScroll}>
           Булки
         </Tab>
-        <Tab value="two" active={current === 'two'} onClick={handlerScroll}>
+        <Tab value="two" active={current === 'two'} onClick={sauceScroll}>
           Соусы
         </Tab>
-        <Tab value="three" active={current === 'three'} onClick={handlerScroll}>
+        <Tab value="three" active={current === 'three'} onClick={mainScroll}>
           Начинки
         </Tab>
       </div>
 
       <div className={styles.ingredients}>
-        <h2 id="one" className="text text_type_main-medium">Булки</h2> 
+        <h2 ref={bun} className="text text_type_main-medium">Булки</h2> 
         <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`}>
           {
             ingredients.map((ingredient) => {
@@ -44,7 +57,7 @@ function BurgerIngredients({ ingredients }) {
           }
         </ul>
 
-        <h2 id="two" className="text text_type_main-medium">Соусы</h2>
+        <h2 ref={sauce} className="text text_type_main-medium">Соусы</h2>
         <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`}>
           {
             ingredients.map((ingredient) => {
@@ -56,7 +69,7 @@ function BurgerIngredients({ ingredients }) {
           }
         </ul>
 
-        <h2 id="three" className="text text_type_main-medium">Начинки</h2>
+        <h2 ref={main} className="text text_type_main-medium">Начинки</h2>
         <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`}> 
           {
             ingredients.map((ingredient) => {
@@ -71,9 +84,5 @@ function BurgerIngredients({ ingredients }) {
     </section>
   )
 }
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientsType).isRequired,
-};
 
 export default BurgerIngredients

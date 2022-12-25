@@ -1,18 +1,27 @@
 import React from 'react';
-import styles from './IngredientsItem.module.css'
+import styles from './IngredientsItem.module.css';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import ConstructorContext from '../../services/constructorContext'
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ingredientsType from '../../utils/types';
 
+
 function IngredientsItem({ ingredient }) {
 
-  const [isIngredientDetailsOpen, setIngredientDetailsOpen] = React.useState(false)
+  const { constructorDispatch } = React.useContext(ConstructorContext);
+
+  const [isIngredientDetailsOpen, setIngredientDetailsOpen] = React.useState(false);
 
   function openModal() {
     setIngredientDetailsOpen(true);
+    constructorDispatch({
+      type: "add",
+      payload: ingredient
+    })
   }
+  
   function closeModal () {
     setIngredientDetailsOpen(false);
   }
