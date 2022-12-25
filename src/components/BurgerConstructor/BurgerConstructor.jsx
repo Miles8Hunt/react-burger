@@ -47,7 +47,7 @@ function BurgerConstructor() {
       }, [constructorState.main]
     )
     setTotalPrice(price);
-  });
+  }, [constructorState]);
 
   return (
     <section className={`${styles.section} mt-25 pl-6`}>

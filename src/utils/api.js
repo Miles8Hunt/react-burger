@@ -1,6 +1,5 @@
 
-const api = 'https://norma.nomoreparties.space/api/ingredients';
-const order = 'https://norma.nomoreparties.space/api/orders';
+const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 function parseResponse(res) {
   if (res.ok) {
@@ -10,9 +9,14 @@ function parseResponse(res) {
   }
 }
 
+// универсальная функция запроса с проверкой ответа
+function request(url, options) {
+  // принимает два аргумента: урл и объект опций, как и `fetch`
+  return fetch(url, options).then(parseResponse)
+}
+
 const getIngredients = (setData) => {
-  fetch(api)
-  .then(res => parseResponse(res))
+  request(`${BASE_URL}/ingredients`, setData)
   .then(json => setData(json.data))
   .catch((error) => {
     console.log(`Ошибка - ${error}`);
@@ -20,7 +24,7 @@ const getIngredients = (setData) => {
 }
 
 const getOrderNumber = (constructor, setModalData) => {
-  fetch(order, {
+  fetch(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
      "Content-type": 'application/json'
@@ -30,6 +34,9 @@ const getOrderNumber = (constructor, setModalData) => {
   .then(res => parseResponse(res))
   .then(data => {
     setModalData(data);
+  })
+  .catch((error) => {
+    console.log(`Ошибка - ${error}`);
   })
 }
 

@@ -29,7 +29,7 @@ function App() {
           main: [...state.main, action.payload]
         }
       default:
-        return {...state} 
+        return state
     }
   }
   
