@@ -101,7 +101,7 @@ function BurgerConstructor() {
             <CurrencyIcon type="primary" />
           </div>
         </div>
-        <Button type="primary" size="large" htmlType='button' onClick={openModal}>Оформить заказ</Button>
+        <Button type="primary" size="large" htmlType='button' onClick={() => !!constructorState.bun._id ? openModal() : null}>Оформить заказ</Button>
       </div> 
 
       {orderDetailsOpen && modalData &&
