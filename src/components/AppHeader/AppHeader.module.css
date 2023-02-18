@@ -8,7 +8,10 @@
   align-items: center;
   margin: auto;
   background-color: #1C1C21;
-  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 
+              0px 16px 24px rgba(0, 0, 0, 0.04), 
+              0px 4px 8px rgba(0, 0, 0, 0.04), 
+              0px 0px 1px rgba(0, 0, 0, 0.04);
 }
 
 .nav {
@@ -20,7 +23,9 @@
 }
 
 .link {
-  height: 56px;
+  padding: 20px; 
+  white-space: nowrap;
+  gap: 8px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -28,6 +33,10 @@
   color: #F2F2F3;
   border: none;
   cursor: pointer;
+  text-decoration: none;
+}
+.activeLink {
+  color:white;
 }
 
 .account {

@@ -1,14 +1,13 @@
 import React from 'react';
 import styles from './IngredientsItem.module.css';
-import Modal from '../Modal/Modal';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ingredientsType from '../../utils/types';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from 'react-redux';
-// import { CONSTRUCTOR_ADD } from '../../services/actions/burgerConstructor';
-import { RESET_MODAL, SET_MODAL } from '../../services/actions/ingredientDetails';
 import { useDrag } from 'react-dnd';
+
+import { currentIngredient } from "../../services/actions/burgerIngredients";
+import { ingredientModalStatus } from "../../services/actions/modal";
 
 
 function IngredientsItem({ ingredient }) {
@@ -16,19 +15,13 @@ function IngredientsItem({ ingredient }) {
   const dispatch = useDispatch();
   
   const addedIngredients = useSelector(state => state.burgerConstructorReducer);
-  const selectedIngredient = useSelector(state => state.ingredientDetailsReducer.selectedIngredient);
+  const burgerData = useSelector(state => state.burgerIngredientsReducer.ingredients);
 
-  const [isIngredientDetailsOpen, setIngredientDetailsOpen] = React.useState(false);
-
-  function openModal() {
-    // dispatch({ type: CONSTRUCTOR_ADD, payload: ingredient });
-    dispatch({ type: SET_MODAL, payload: ingredient });
-    setIngredientDetailsOpen(true);
-  };
-  
-  function closeModal () {
-    dispatch({ type: RESET_MODAL});
-    setIngredientDetailsOpen(false);
+  const openIngredientDetails = (e) => {
+    const id = e.currentTarget.id
+    const current = burgerData.find(element => element._id === id)
+    dispatch(currentIngredient(current));
+    dispatch(ingredientModalStatus(true));
   };
 
   const counter = React.useMemo(() => {
@@ -50,7 +43,7 @@ function IngredientsItem({ ingredient }) {
   return(
     <>
 
-      <li className={styles.item} ref={dragRef} key={ingredient._id} onClick={openModal}>
+      <li className={styles.item} ref={dragRef} key={ingredient._id} id={ingredient._id} onClick={openIngredientDetails}>
         {counter > 0 && <Counter count={counter} size={"default"} />}
         <img src={ingredient.image} alt={ingredient.name} style={{opacity}}></img>
         <div className={`${styles.price} mt-2 mb-2`}>
@@ -59,14 +52,6 @@ function IngredientsItem({ ingredient }) {
         </div>
         <p className={`${styles.name} text text_type_main-default`}>{ingredient.name}</p>
       </li>
-
-      {isIngredientDetailsOpen && selectedIngredient && 
-        <Modal closeModal={closeModal}>
-          <IngredientDetails     
-            ingredient={selectedIngredient}
-          />
-        </Modal> 
-      } 
 
     </>   
   )

@@ -1,24 +1,48 @@
 import styles from './AppHeader.module.css';
 import {BurgerIcon, ListIcon, ProfileIcon, Logo} from '@ya.praktikum/react-developer-burger-ui-components';
+import { NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import classNames from 'classnames';
 
 function AppHeader() {
+
+  const path = useLocation().pathname;
+
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <button className={`${styles.link} pl-5 pr-5 pb-5 pt-5`}>
-          <BurgerIcon type="primary" />
+      <NavLink to='/' 
+               className={({ isActive }) =>
+               classNames(styles.link, { 'text_color_inactive': !isActive },
+               `${isActive ? styles.activeLink : 'text_color_inactive'}`)}>
+
+          <BurgerIcon type={(path === '/') ? 'primary' : "secondary"} />
+
           <p className="text text_type_main-default ml-2">Конструктор</p>
-        </button>
-        <button className={`${styles.link} pl-5 pr-5 pb-5 pt-5`}>
-          <ListIcon type="secondary" />
+
+        </NavLink>
+        <NavLink to='/feed' 
+                 className={({ isActive }) =>
+                 classNames(styles.link, { 'text_color_inactive': !isActive },
+                 `${isActive ? styles.activeLink : 'text_color_inactive'}`)}>
+
+          <ListIcon type={(path === '/feed') ? 'primary' : "secondary"}  />
+
           <p className="text text_type_main-default ml-2">Лента заказов</p>
-        </button>
+
+        </NavLink>
       </nav>
       <Logo />  
-      <button className={`${styles.account} pl-5 pr-5 pb-5 pt-5`}>
-        <ProfileIcon type="secondary" />
+      <NavLink to='/profile' 
+               className={({ isActive }) =>
+               classNames(styles.link, styles.account, { 'text_color_inactive': !isActive },
+               `${isActive ? styles.activeLink : 'text_color_inactive'}`)}>
+
+        <ProfileIcon type={(path === '/profile') ? 'primary' : "secondary"}  />
+
         <p className="text text_type_main-default ml-2">Личный кабинет</p>
-      </button>  
+
+      </NavLink>  
     </header>
   )
 };
