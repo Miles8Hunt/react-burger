@@ -1,7 +1,7 @@
 import { SET_MODAL, RESET_MODAL } from '../actions/ingredientDetails';
 
 const initialState = {
-  selectedIngredient: null    
+  selectedIngredient: null,    
 };
 
 export const ingredientDetailsReducer = (state = initialState, action) => {

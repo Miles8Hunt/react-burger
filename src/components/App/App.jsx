@@ -11,7 +11,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { getCookie } from '../../utils/cookies';
 import Login from '../../pages/login/login';
 import Register from '../../pages/register/register';
@@ -30,6 +30,11 @@ function App() {
   const dispatch = useDispatch();
   const access = getCookie("accessToken")
 
+
+  const location = useLocation();
+  const background = location.state && location.state.background;
+
+
   const userInfo = useSelector((state) => state.userRequestReducer.userInfo);
   const isModalOpen = useSelector(state => state.ingredientDetailsReducer.selectedIngredient);
   const isIngredientModalOpen = useSelector(state => state.modalReducer.isIngredientModalOpen);
@@ -46,10 +51,9 @@ function App() {
 
   return (
     <div className={styles.page}>  
-        <Router>
-          <Routes>
+          <Routes location={background}>
 
-            <Route path="/" element={<> <AppHeader />
+            <Route index path="/" element={<> <AppHeader />
               <main className={styles.main}>
                 <DndProvider backend={HTML5Backend}>
                   <BurgerIngredients />
@@ -57,11 +61,17 @@ function App() {
                 </DndProvider>
               </main>
 
-              {isIngredientModalOpen && (
-				      <Modal title={'Детали ингредиента'} closeModal={closeModal}>
-					      <IngredientDetails ingredient={currentIngredient}/>
-				      </Modal>
-			        )}</>} >
+              {isIngredientModalOpen && background && (
+                <Routes>
+                <Route path="*" element={
+                  <Modal title="Детали ингредиента" closeModal={closeModal} route>
+                    <IngredientDetails ingredient={currentIngredient} />
+                  </Modal> }>
+                </Route>
+                </Routes>
+              )}
+
+              </>} >
             </Route>
 
             <Route path='/login' element={(!userInfo && !access) ? <Login /> : <Navigate to={'/'} /> }/>
@@ -73,7 +83,6 @@ function App() {
             <Route path="/ingredients/:id" element={<IngredientPage />} />
 
           </Routes>
-        </Router>
     </div>
   )
 };

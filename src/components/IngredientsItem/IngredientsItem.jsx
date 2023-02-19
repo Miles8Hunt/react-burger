@@ -5,14 +5,15 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
-
 import { currentIngredient } from "../../services/actions/burgerIngredients";
 import { ingredientModalStatus } from "../../services/actions/modal";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 
 function IngredientsItem({ ingredient }) {
 
   const dispatch = useDispatch();
+  const location = useLocation();
   
   const addedIngredients = useSelector(state => state.burgerConstructorReducer);
   const burgerData = useSelector(state => state.burgerIngredientsReducer.ingredients);
@@ -42,17 +43,18 @@ function IngredientsItem({ ingredient }) {
 
   return(
     <>
-
       <li className={styles.item} ref={dragRef} key={ingredient._id} id={ingredient._id} onClick={openIngredientDetails}>
         {counter > 0 && <Counter count={counter} size={"default"} />}
-        <img src={ingredient.image} alt={ingredient.name} style={{opacity}}></img>
+        <Link to={`/ingredients/${ingredient._id}`} state={{ background: location }}>
+          <img src={ingredient.image} alt={ingredient.name} style={{opacity}}></img>
+        <Outlet />
+        </Link>
         <div className={`${styles.price} mt-2 mb-2`}>
           <p className="text text_type_digits-default">{ingredient.price}</p>
           <CurrencyIcon type="primary" />
         </div>
         <p className={`${styles.name} text text_type_main-default`}>{ingredient.name}</p>
       </li>
-
     </>   
   )
 }
