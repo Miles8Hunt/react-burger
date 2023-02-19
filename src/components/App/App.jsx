@@ -32,7 +32,7 @@ function App() {
 
 
   const location = useLocation();
-  const background = location.state && location.state.background;
+  const background = location.state?.locationIngredient || location;
 
 
   const userInfo = useSelector((state) => state.userRequestReducer.userInfo);
@@ -61,7 +61,7 @@ function App() {
                 </DndProvider>
               </main>
 
-              {isIngredientModalOpen && background && (
+              {location.state?.locationIngredient && isIngredientModalOpen && background && (
                 <Routes>
                 <Route path="*" element={
                   <Modal title="Детали ингредиента" closeModal={closeModal} route>

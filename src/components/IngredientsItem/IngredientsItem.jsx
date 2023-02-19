@@ -45,7 +45,7 @@ function IngredientsItem({ ingredient }) {
     <>
       <li className={styles.item} ref={dragRef} key={ingredient._id} id={ingredient._id} onClick={openIngredientDetails}>
         {counter > 0 && <Counter count={counter} size={"default"} />}
-        <Link to={`/ingredients/${ingredient._id}`} state={{ background: location }}>
+        <Link to={`/ingredients/${ingredient._id}`} state={{ locationIngredient: location }}>
           <img src={ingredient.image} alt={ingredient.name} style={{opacity}}></img>
         <Outlet />
         </Link>
