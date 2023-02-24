@@ -50,7 +50,7 @@ export const logInRequest = (form) => {
       if(res.success) {
         dispatch({
           type: LOGIN_SUCCESS,
-          payload: res
+          payload: res.user
       });
         setCookie('accessToken', res.accessToken)
         localStorage.setItem('refreshToken', res.refreshToken)
