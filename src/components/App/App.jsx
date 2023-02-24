@@ -7,12 +7,11 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
 import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/burgerIngredients';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { getCookie } from '../../utils/cookies';
+import HomePage from '../../pages/homePage/homePage';
 import Login from '../../pages/login/login';
 import Register from '../../pages/register/register';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
@@ -22,7 +21,6 @@ import Notfound404 from '../../pages/not-found-404/not-found-404';
 import ProtectRoute from '../ProtectRoute/ProtectRoute';
 import IngredientPage from '../../pages/ingredientPage/ingredientPage';
 import { checkAuth } from '../../services/actions/user';
-import { modalStatus, ingredientModalStatus } from '../../services/actions/modal';
 
 
 function App() {
@@ -30,19 +28,10 @@ function App() {
   const dispatch = useDispatch();
   const access = getCookie("accessToken")
 
-
   const location = useLocation();
   const background = location.state?.locationIngredient || location;
 
-
   const userInfo = useSelector((state) => state.userRequestReducer.userInfo);
-  const isModalOpen = useSelector(state => state.ingredientDetailsReducer.selectedIngredient);
-  const isIngredientModalOpen = useSelector(state => state.modalReducer.isIngredientModalOpen);
-  const currentIngredient = useSelector(state => state.burgerIngredientsReducer.currentIngredient);
-
-  const closeModal = () => {
-    isModalOpen ? dispatch(modalStatus(false)) : dispatch(ingredientModalStatus(false));
-  }
 
   React.useEffect(() => {
       dispatch(getIngredients()); 
@@ -50,39 +39,32 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className={styles.page}>  
-          <Routes location={background}>
+    <div className={styles.page}> 
 
-            <Route index path="/" element={<> <AppHeader />
-              <main className={styles.main}>
-                <DndProvider backend={HTML5Backend}>
-                  <BurgerIngredients />
-                  <BurgerConstuctor />
-                </DndProvider>
-              </main>
+      <Routes location={background}>
+            
+        <Route index path="/" element={<> <HomePage /> </>} ></Route>
 
-              {location.state?.locationIngredient && isIngredientModalOpen && background && (
-                <Routes>
-                <Route path="*" element={
-                  <Modal title="Детали ингредиента" closeModal={closeModal} route>
-                    <IngredientDetails ingredient={currentIngredient} />
-                  </Modal> }>
-                </Route>
-                </Routes>
-              )}
+        <Route path='/login' element={(!userInfo && !access) ? <Login /> : <Navigate to={'/'} /> }/>
+        <Route path='/register' element={(!userInfo && !access) ? <Register /> : <Navigate to={'/'} /> }/>
+        <Route path='/forgot-password' element={(!userInfo && !access) ? <ForgotPassword /> : <Navigate to={'/'} /> }/>
+        <Route path='/reset-password' element={(!userInfo && !access) ? <ResetPassword /> : <Navigate to={'/'} /> }/>
+        <Route path='/profile' element={<ProtectRoute element={<Profile />} />} />
+        <Route path="*" element={<Notfound404 />} />
+        <Route path="/ingredients/:id" element={<IngredientPage />} />
 
-              </>} >
-            </Route>
+      </Routes>
 
-            <Route path='/login' element={(!userInfo && !access) ? <Login /> : <Navigate to={'/'} /> }/>
-            <Route path='/register' element={(!userInfo && !access) ? <Register /> : <Navigate to={'/'} /> }/>
-            <Route path='/forgot-password' element={(!userInfo && !access) ? <ForgotPassword /> : <Navigate to={'/'} /> }/>
-            <Route path='/reset-password' element={(!userInfo && !access) ? <ResetPassword /> : <Navigate to={'/'} /> }/>
-            <Route path='/profile' element={<ProtectRoute element={<Profile />} />} />
-            <Route path="*" element={<Notfound404 />} />
-            <Route path="/ingredients/:id" element={<IngredientPage />} />
+      {location.state?.locationIngredient && (
+            <Routes>
+              <Route path="/ingredients/:id" element={
+                <Modal title="Детали ингредиента" route>
+                  <IngredientDetails />
+                </Modal> }>
+              </Route>
+            </Routes>
+          )}
 
-          </Routes>
     </div>
   )
 };

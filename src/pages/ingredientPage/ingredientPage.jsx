@@ -8,14 +8,14 @@ const IngredientPage = () => {
 
   const ingredients = useSelector((state) => state.burgerIngredientsReducer.ingredients);
   let { id }  = useParams();
-  const currentIngredient = ingredients.find((el) => el._id === id);
+  const ingredient = ingredients.find((el) => el._id === id);
 
   return  (
-    currentIngredient && (
+    ingredient && (
       <>
         <AppHeader />
         <div className={styles.container}>
-          <IngredientDetails ingredient={currentIngredient} />
+          <IngredientDetails />
         </div>
       </>
     )

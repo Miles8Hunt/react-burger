@@ -14,12 +14,23 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   const userInfo = useSelector((state) => state.userRequestReducer.userInfo);
+  console.log(userInfo)
+  
   let userEmail = userInfo.email
   let userName = userInfo.name
 
   const [name, setName] = useState(userName);
   const [email, setEmail] = useState(userEmail);
   const [password, setPassword] = useState('');
+
+  const [form, setForm] = useState({
+		email: userInfo.email,
+		name: userInfo.name,
+		password: '',
+	});
+  const onChange = (e) => {
+		setForm({ ...form, [e.target.name]: e.target.value });
+	}
 
   const handleResetData = (evt) => {
     evt.preventDefault();
@@ -37,18 +48,18 @@ const Profile = () => {
     setEmail(value);
   };
 
-    const changePassword = evt => {
-      const value = evt.target.value;
-      setPassword(value);
-    };
+  const changePassword = evt => {
+    const value = evt.target.value;
+    setPassword(value);
+  };
 
-    const accessToken = getCookie('accessToken')
+  const accessToken = getCookie('accessToken')
 
-    const saveUserData = useCallback((evt) => {
-      evt.preventDefault();
-      dispatch(updateUserData(accessToken, name, email, password));
-    }, [accessToken, name, email, password, dispatch]
-    );
+  const saveUserData = useCallback((evt) => {
+    evt.preventDefault();
+    dispatch(updateUserData(accessToken, name, email, password));
+  }, [accessToken, name, email, password, dispatch]
+  );
 
   return (
     <>
@@ -58,7 +69,7 @@ const Profile = () => {
           <form className={styles.form} onSubmit={saveUserData} name="profile">
             <Input
               onChange={changeName}
-              value={name}
+              value={form.name}
               name={'name'}
               placeholder="Имя"
               icon={"EditIcon"}
@@ -67,7 +78,7 @@ const Profile = () => {
             />
             <EmailInput
               onChange={changeEmail}
-              value={email}
+              value={form.email}
               name={'email'}
               placeholder="Логин"
               icon={"EditIcon"}
@@ -76,7 +87,7 @@ const Profile = () => {
             />
             <PasswordInput
               onChange={changePassword}
-              value={password}
+              value={form.password}
               name={'password'}
               placeholder="Пароль"
               icon={"EditIcon"}

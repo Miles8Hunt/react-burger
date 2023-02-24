@@ -5,6 +5,7 @@ const initialState = {
   forgotPasswordRequest: false,
   forgotPasswordRequestFailed: false,
   email: false,
+  forgotPasswordSuccess: false
 };
 
 export const forgotPasswordReducer = (state = initialState, action) => {
@@ -21,6 +22,7 @@ export const forgotPasswordReducer = (state = initialState, action) => {
               ...state,
               forgotPasswordRequest: false,
               email: action.payload,
+              forgotPasswordSuccess: true,
           }
       case FORGOT_PASSWORD_FAILED:
           return {

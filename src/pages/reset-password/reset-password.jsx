@@ -3,8 +3,8 @@ import AppHeader from '../../components/AppHeader/AppHeader';
 import { useForm } from '../../utils/useForm';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useNavigate, Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useCallback } from 'react';
 import { resetPasswordRequest }from '../../services/actions/reserPassword';
 
@@ -21,6 +21,12 @@ const ResetPassword = () => {
     dispatch(resetPasswordRequest(values));
     navigate('/');
   }, [values, dispatch]);
+
+  const {forgotPasswordSuccess} = useSelector(state => state.forgotPasswordReducer);
+  
+	if (!forgotPasswordSuccess) {
+		return <Navigate to={{ pathname: "/forgot-password" }} />;
+	}
 
   return (
     <>
@@ -40,7 +46,6 @@ const ResetPassword = () => {
             value={values.token}
             placeholder="Введите код из письма"
             name={'token'}
-            isIcon={false}
             extraClass="mb-6"
           />
           <div className={styles.submit}>

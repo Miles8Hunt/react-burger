@@ -1,10 +1,16 @@
 import styles from './IngredientDetails.module.css';
-import ingredientsType from '../../utils/types';
+import { useSelector } from "react-redux";
+import { useParams } from 'react-router-dom';
 
 
-function IngredientDetails({ ingredient }) {
+function IngredientDetails() {
+
+  const ingredients = useSelector((state) => state.burgerIngredientsReducer.ingredients);
+  let { id }  = useParams();
+  const ingredient = ingredients.find((el) => el._id === id);
 
   return (
+    ingredient && (
     <div className={styles.content}>
       <h1 className={`${styles.title} text text_type_main-large mt-15 ml-10`}>Детали ингредиента</h1>
       <img src={ingredient.image_large} alt={ingredient.name}></img>
@@ -29,10 +35,8 @@ function IngredientDetails({ ingredient }) {
       </ul>
     </div>
   )
+  )
 };
 
-IngredientDetails.propTypes = {
-  ingredient: ingredientsType.isRequired,
-};
 
 export default IngredientDetails

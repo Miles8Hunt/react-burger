@@ -41,7 +41,7 @@ function BurgerConstructor() {
 
   function openModal() {
     if(!userInfo) {
-      navigate.push('/login')
+      navigate('/login')
       return;
     } 
     setOrderDetailsOpen(true);

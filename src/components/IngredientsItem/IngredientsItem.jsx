@@ -6,7 +6,6 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { currentIngredient } from "../../services/actions/burgerIngredients";
-import { ingredientModalStatus } from "../../services/actions/modal";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
 
@@ -22,7 +21,6 @@ function IngredientsItem({ ingredient }) {
     const id = e.currentTarget.id
     const current = burgerData.find(element => element._id === id)
     dispatch(currentIngredient(current));
-    dispatch(ingredientModalStatus(true));
   };
 
   const counter = React.useMemo(() => {
@@ -47,8 +45,8 @@ function IngredientsItem({ ingredient }) {
         {counter > 0 && <Counter count={counter} size={"default"} />}
         <Link to={`/ingredients/${ingredient._id}`} state={{ locationIngredient: location }}>
           <img src={ingredient.image} alt={ingredient.name} style={{opacity}}></img>
-        <Outlet />
         </Link>
+        <Outlet />
         <div className={`${styles.price} mt-2 mb-2`}>
           <p className="text text_type_digits-default">{ingredient.price}</p>
           <CurrencyIcon type="primary" />
