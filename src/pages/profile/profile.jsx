@@ -2,53 +2,64 @@ import styles from './profile.module.css';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import ProfileNavigate from '../../components/ProfileNavigate/ProfileNavigate';
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useCallback } from 'react';
 import { getCookie } from '../../utils/cookies';
 import { updateUserData } from '../../services/actions/user';
+import { checkAuth } from '../../services/actions/user';
+import { useNavigate } from "react-router-dom";
 
 
 const Profile = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userInfo = useSelector((state) => state.userRequestReducer.userInfo);
-  let userEmail = userInfo.email
-  let userName = userInfo.name
 
-  const [name, setName] = useState(userName);
-  const [email, setEmail] = useState(userEmail);
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+
+  useEffect(() => {
+    if (userInfo) {
+      setUserName(userInfo.name);
+      setUserEmail(userInfo.email);
+      setUserPassword(userPassword);
+    } else {
+      dispatch(checkAuth());
+      navigate('/profile', { replace: true })
+    }
+  }, [dispatch, userInfo, navigate, userPassword])
 
   const handleResetData = (evt) => {
     evt.preventDefault();
-    setName(userName)
-    setEmail(userEmail)
+    setUserName(userInfo.name);
+    setUserEmail(userInfo.email);
+    setUserPassword('');
   }
 
-  const changeName = evt => {
-    const value = evt.target.value;
-    setName(value);
-  };
+  const changeName = (e) => {
+    const value = e.target.value;
+    setUserName(value);
+  }
 
-  const changeEmail = evt => {
-    const value = evt.target.value;
-    setEmail(value);
-  };
+  const changeEmail = (e) => {
+    const value = e.target.value;
+    setUserEmail(value);
+  }
 
-    const changePassword = evt => {
-      const value = evt.target.value;
-      setPassword(value);
-    };
+  const changePassword = (e) => {
+    const value = e.target.value;
+    setUserPassword(value);
+  }
 
-    const accessToken = getCookie('accessToken')
+  const accessToken = getCookie('accessToken')
 
-    const saveUserData = useCallback((evt) => {
-      evt.preventDefault();
-      dispatch(updateUserData(accessToken, name, email, password));
-    }, [accessToken, name, email, password, dispatch]
-    );
+  const saveUserData = (e) => {
+    e.preventDefault();
+    dispatch(updateUserData(accessToken, userName, userEmail, userPassword));
+  }
 
   return (
     <>
@@ -58,7 +69,7 @@ const Profile = () => {
           <form className={styles.form} onSubmit={saveUserData} name="profile">
             <Input
               onChange={changeName}
-              value={name}
+              value={userName}
               name={'name'}
               placeholder="Имя"
               icon={"EditIcon"}
@@ -67,7 +78,7 @@ const Profile = () => {
             />
             <EmailInput
               onChange={changeEmail}
-              value={email}
+              value={userEmail}
               name={'email'}
               placeholder="Логин"
               icon={"EditIcon"}
@@ -76,7 +87,7 @@ const Profile = () => {
             />
             <PasswordInput
               onChange={changePassword}
-              value={password}
+              value={userPassword}
               name={'password'}
               placeholder="Пароль"
               icon={"EditIcon"}
@@ -86,10 +97,11 @@ const Profile = () => {
             <div className={styles.actions}>
               <button className={styles.cancel} onClick={handleResetData}>Отмена </button>
               <Button
+                onClick={saveUserData}
                 type="primary"
                 size="medium"
                 htmlType='submit'
-                onClick={saveUserData}>Сохранить
+                >Сохранить
               </Button> 
             </div>
           </form>  

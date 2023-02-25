@@ -21,10 +21,32 @@ export const UPDATE_USER_DATA_SUCCESS = 'UPDATE_USER_DATA_SUCCESS';
 export const UPDATE_USER_DATA_FAILED = 'UPDATE_USER_DATA_FAILED';
 
 
+export const getUser = () => (dispatch) => {
+  dispatch({
+    type: GET_USER
+  })
+  return getUserApi()
+  .then(res => {
+    if(res.success) {
+      dispatch({
+        type: GET_USER_SUCCESS,
+        payload: res.user
+      })
+    }
+  })
+  .catch((err) => {
+    dispatch({
+      type: GET_USER_FAILED
+    })
+    err.message && console.log(`Ошибка запроса ${err.message}`)
+    !err.message && console.log(err)
+  })
+};
+
 export const checkAuth = () => (dispatch) => {
   if(getCookie('accessToken')) {
     dispatch(getUser())
-      .finally(() => {
+      .then(() => {
         dispatch ({
           type: AUTH_CHECKED
         })
@@ -91,28 +113,6 @@ export const logOutRequest = (refreshToken) => {
       console.log(`Ошибка запроса ${err}`)
     })
   }
-};
-
-export const getUser = () => (dispatch) => {
-  dispatch({
-    type: GET_USER
-  })
-  return getUserApi()
-  .then(res => {
-    if(res.success) {
-      dispatch({
-        type: GET_USER_SUCCESS,
-        payload: res.user
-      })
-    }
-  })
-  .catch((err) => {
-    dispatch({
-      type: GET_USER_FAILED
-    })
-    err.message && console.log(`Ошибка запроса ${err.message}`)
-    !err.message && console.log(err)
-  })
 };
 
 export const updateUserData = (accessToken, name, email, password) => {

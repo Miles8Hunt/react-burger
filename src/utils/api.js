@@ -67,4 +67,4 @@ const getUserApi = () => {
 };
 
 
-export { BASE_URL, request, getUserApi }
+export { BASE_URL, request, getUserApi, parseResponse }

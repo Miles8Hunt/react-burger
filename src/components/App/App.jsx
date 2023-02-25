@@ -21,6 +21,7 @@ import Notfound404 from '../../pages/not-found-404/not-found-404';
 import ProtectRoute from '../ProtectRoute/ProtectRoute';
 import IngredientPage from '../../pages/ingredientPage/ingredientPage';
 import { checkAuth } from '../../services/actions/user';
+import { RESET_MODAL } from '../../services/actions/ingredientDetails';
 
 
 function App() {
@@ -37,6 +38,10 @@ function App() {
       dispatch(getIngredients()); 
       dispatch(checkAuth());
   }, [dispatch]);
+
+  function closeModal () {
+    dispatch({ type: RESET_MODAL});
+  };
 
   return (
     <div className={styles.page}> 
@@ -58,7 +63,7 @@ function App() {
       {location.state?.locationIngredient && (
             <Routes>
               <Route path="/ingredients/:id" element={
-                <Modal title="Детали ингредиента" route>
+                <Modal title="Детали ингредиента" closeModal={closeModal} route>
                   <IngredientDetails />
                 </Modal> }>
               </Route>

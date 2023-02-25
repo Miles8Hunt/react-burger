@@ -2,7 +2,8 @@ import {  AUTH_CHECKED,
           LOGIN, LOGIN_SUCCESS, LOGIN_FAILED,
           LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED, 
           GET_USER, GET_USER_SUCCESS, GET_USER_FAILED, 
-          UPDATE_USER_DATA, UPDATE_USER_DATA_SUCCESS, UPDATE_USER_DATA_FAILED 
+          UPDATE_USER_DATA, UPDATE_USER_DATA_SUCCESS, UPDATE_USER_DATA_FAILED,
+
 } from '../actions/user';
 
 
@@ -17,6 +18,7 @@ const initialState = {
   getUserRequestFailed: false,
   updateUserRequest: false,
   updateUserRequestFailed: false,
+  isAuth: undefined,
 };
 
 export const userRequestReducer = (state = initialState, action) => {
@@ -37,7 +39,7 @@ export const userRequestReducer = (state = initialState, action) => {
       return {
         ...state,
         loginRequest: true,
-        userInfo: action.payload.user,
+        userInfo: action.payload,
         isAuthChecked: true,
       }
     case LOGIN_FAILED: 
