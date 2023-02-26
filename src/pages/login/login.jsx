@@ -1,8 +1,7 @@
 import styles from './login.module.css';
-import AppHeader from '../../components/AppHeader/AppHeader';
 import { useForm } from '../../utils/useForm';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCallback } from "react";
 import { useDispatch } from 'react-redux';
 import { logInRequest }from '../../services/actions/user';
@@ -11,20 +10,16 @@ import { logInRequest }from '../../services/actions/user';
 const Login = () => {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const {values, handleChange } = useForm({email:'', password:''});
 
   const logIn = useCallback((e) => {
       e.preventDefault();
       dispatch(logInRequest(values));
-      navigate('/');
   }, [values, dispatch]
   ); 
 
   return (
-    <>
-      <AppHeader />
       <div className={styles.container}>
         <h1 className={styles.title}>Вход</h1>
         <form className={styles.form} onSubmit={logIn} name="sign_in">
@@ -59,7 +54,6 @@ const Login = () => {
           <Link to='/forgot-password' className={styles.link}> &#8194; Восстановить пароль </Link>
         </div>
       </div>
-    </>
   )
 };
 

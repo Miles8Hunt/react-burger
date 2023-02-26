@@ -1,5 +1,4 @@
 import styles from './profile.module.css';
-import AppHeader from '../../components/AppHeader/AppHeader';
 import ProfileNavigate from '../../components/ProfileNavigate/ProfileNavigate';
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState, useEffect } from "react";
@@ -62,8 +61,6 @@ const Profile = () => {
   }
 
   return (
-    <>
-      <AppHeader />
       <div className={styles.container}>
         <ProfileNavigate />
           <form className={styles.form} onSubmit={saveUserData} name="profile">
@@ -107,7 +104,6 @@ const Profile = () => {
           </form>  
           <div className={styles.div}></div>
       </div>
-    </>
   )
 };
 

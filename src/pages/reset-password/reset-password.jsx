@@ -1,5 +1,4 @@
 import styles from './reset-password.module.css';
-import AppHeader from '../../components/AppHeader/AppHeader';
 import { useForm } from '../../utils/useForm';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
@@ -29,8 +28,6 @@ const ResetPassword = () => {
 	}
 
   return (
-    <>
-      <AppHeader />
       <div className={styles.container}>
         <h1 className={styles.title}> Восстановление пароля </h1>
         <form className={styles.form} onSubmit={settingNewPassword} name="password_reset">
@@ -61,7 +58,6 @@ const ResetPassword = () => {
           <Link to='/login' className={styles.link}> &#8194; Войти </Link>
         </div>
       </div>
-    </>
   )
 }
 

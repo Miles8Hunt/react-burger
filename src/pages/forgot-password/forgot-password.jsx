@@ -1,5 +1,4 @@
 import styles from './forgot-password.module.css';
-import AppHeader from '../../components/AppHeader/AppHeader';
 import { useForm } from '../../utils/useForm';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
@@ -23,8 +22,6 @@ const ForgotPassword = () => {
   );
 
   return (
-    <>
-      <AppHeader />
       <div className={styles.container}>
         <h1 className={styles.title}> Восстановление пароля </h1>
         <form className={styles.form} onSubmit={forgotPassword} name="restore_password">
@@ -50,7 +47,6 @@ const ForgotPassword = () => {
           <Link to='/login' className={styles.link}> &#8194; Войти </Link>
         </div>
       </div>
-    </>
   )
 };
  

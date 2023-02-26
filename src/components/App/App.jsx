@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div className={styles.page}> 
-
+      <AppHeader />
       <Routes location={background}>
             
         <Route index path="/" element={<> <HomePage /> </>} ></Route>
@@ -61,14 +61,14 @@ function App() {
       </Routes>
 
       {location.state?.locationIngredient && (
-            <Routes>
-              <Route path="/ingredients/:id" element={
-                <Modal title="Детали ингредиента" closeModal={closeModal} route>
-                  <IngredientDetails />
-                </Modal> }>
-              </Route>
-            </Routes>
-          )}
+        <Routes>
+          <Route path="/ingredients/:id" element={
+            <Modal title="Детали ингредиента" closeModal={closeModal} route>
+              <IngredientDetails />
+            </Modal> }>
+          </Route>
+        </Routes>
+      )}
 
     </div>
   )

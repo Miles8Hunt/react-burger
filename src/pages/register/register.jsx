@@ -1,5 +1,4 @@
 import styles from './register.module.css';
-import AppHeader from '../../components/AppHeader/AppHeader';
 import { useForm } from '../../utils/cookies';
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from 'react-router-dom';
@@ -26,8 +25,6 @@ const Register = () => {
   }, [values, dispatch]);
   
   return (
-    <>
-      <AppHeader />
       <div className={styles.container}>
         <h1 className={styles.title}>Регистрация</h1>
         <form className={styles.form} onSubmit={createAccout}>
@@ -67,8 +64,7 @@ const Register = () => {
           <p className={styles.text}> Уже зарегистрированы? </p>
           <Link to='/login' className={styles.link}> &#8194; Войти </Link>
         </div>
-      </div>
-    </>  
+      </div> 
   )
 };
 

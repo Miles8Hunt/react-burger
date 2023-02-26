@@ -40,7 +40,6 @@ function IngredientsItem({ ingredient }) {
   });
 
   return(
-    <>
       <li className={styles.item} ref={dragRef} key={ingredient._id} id={ingredient._id} onClick={openIngredientDetails}>
         {counter > 0 && <Counter count={counter} size={"default"} />}
         <Link to={`/ingredients/${ingredient._id}`} state={{ locationIngredient: location }}>
@@ -52,8 +51,7 @@ function IngredientsItem({ ingredient }) {
           <CurrencyIcon type="primary" />
         </div>
         <p className={`${styles.name} text text_type_main-default`}>{ingredient.name}</p>
-      </li>
-    </>   
+      </li>  
   )
 }
 
