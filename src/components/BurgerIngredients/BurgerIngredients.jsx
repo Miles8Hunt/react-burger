@@ -6,9 +6,10 @@ import { useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import { mergeRefs } from 'react-merge-refs';
 
+
 function BurgerIngredients() {
 
-  const ingredients = useSelector(state => state.burgerIngredientsReducer.ingredients)
+  const ingredients = useSelector(state => state.burgerIngredientsReducer.ingredients);
 
   const [current, setCurrent] = React.useState("bun");
 
