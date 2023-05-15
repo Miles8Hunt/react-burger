@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
-import BurgerConstuctor from '../BurgerConstructor/BurgerConstructor';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
 import { useDispatch } from 'react-redux';
@@ -20,6 +18,9 @@ import Profile from '../../pages/profile/profile';
 import Notfound404 from '../../pages/not-found-404/not-found-404';
 import ProtectRoute from '../ProtectRoute/ProtectRoute';
 import IngredientPage from '../../pages/ingredientPage/ingredientPage';
+import FeedOrders from '../../pages/feed/feed';
+import ProfileOrders from '../../pages/profileOrders/profileOrders';
+import OrderPage from '../../pages/orderPage/OrderPage';
 import { checkAuth } from '../../services/actions/user';
 import { RESET_MODAL } from '../../services/actions/ingredientDetails';
 
@@ -49,14 +50,17 @@ function App() {
       <Routes location={background}>
             
         <Route index path="/" element={<> <HomePage /> </>} ></Route>
-
         <Route path='/login' element={(!userInfo && !access) ? <Login /> : <Navigate to={'/'} /> }/>
         <Route path='/register' element={(!userInfo && !access) ? <Register /> : <Navigate to={'/'} /> }/>
         <Route path='/forgot-password' element={(!userInfo && !access) ? <ForgotPassword /> : <Navigate to={'/'} /> }/>
         <Route path='/reset-password' element={(!userInfo && !access) ? <ResetPassword /> : <Navigate to={'/'} /> }/>
         <Route path='/profile' element={<ProtectRoute element={<Profile />} />} />
+        <Route path='/profile/orders' element={<ProtectRoute element={<ProfileOrders />} />} />
+        <Route path='/feed' element={<FeedOrders />} />
         <Route path="*" element={<Notfound404 />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
+        <Route path='/feed/:id' element={<OrderPage isLogin={false} />} />
+        <Route path='/profile/orders/:id' element={(!userInfo && !access) ? <Login /> : <OrderPage isLogin={true} />} />
 
       </Routes>
 

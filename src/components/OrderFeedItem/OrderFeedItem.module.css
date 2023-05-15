@@ -1,0 +1,35 @@
+.order {
+  margin-right: 8px;
+  padding: 24px;
+  background-color: #1C1C21;
+  width: 580px;
+  box-sizing: border-box;
+  border-radius: 40px;
+}
+
+.profileOrder {
+  margin-right: 8px;
+  padding: 24px;
+  background-color: #1C1C21;
+  width: 826px;
+  box-sizing: border-box;
+  border-radius: 40px;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sum {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.link {
+  color: #F2F2F3;
+  text-decoration: none;
+}

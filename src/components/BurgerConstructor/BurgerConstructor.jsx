@@ -13,6 +13,7 @@ import { CONSTRUCTOR_ADD } from '../../services/actions/burgerConstructor';
 import { useDrop } from 'react-dnd';
 import { v4 as uuidv4 } from 'uuid'; 
 import { useNavigate } from 'react-router-dom';
+import { getCookie } from '../../utils/cookies';
 
 
 function BurgerConstructor() {
@@ -20,9 +21,10 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
+  const accessToken = getCookie('accessToken')
   const addedIngredients = useSelector(state => state.burgerConstructorReducer);
   const orderNumber = useSelector(state => state.orderDetailsReducer.orderNumber);
-  const userInfo = useSelector((state) => state.userRequestReducer.userInfo)
+  const userInfo = useSelector((state) => state.userRequestReducer.userInfo);
 
   const [orderDetailsOpen, setOrderDetailsOpen] = React.useState(false);
   const [totalPrice, setTotalPrice] = React.useState(null);
@@ -44,9 +46,8 @@ function BurgerConstructor() {
       navigate('/login')
       return;
     } 
+    dispatch(getOrderNumber(constructor, accessToken, setModalData));
     setOrderDetailsOpen(true);
-    //dispatch({ type: GET_ORDER_REQUEST, payload: ingredient });
-    dispatch(getOrderNumber(constructor, setModalData));
   };
 
   function closeModal () {
