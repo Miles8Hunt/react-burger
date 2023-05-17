@@ -19,7 +19,8 @@ function OrderFeed({ orders, listClassName }) {
 }
 
 OrderFeed.propTypes = {
-  orders: PropTypes.array.isRequired
+  orders: PropTypes.array.isRequired,
+  listClassName: PropTypes.string
 }
 
 export default OrderFeed

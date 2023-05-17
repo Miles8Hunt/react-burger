@@ -19,10 +19,9 @@ export const wsConnectionSuccess = () => {
   };
 };
 
-export const wsConnectionError = (event) => {
+export const wsConnectionError = () => {
   return {
-    type: WS_CONNECTION_ERROR,
-    payload: event,
+    type: WS_CONNECTION_ERROR
   };
 };
 

@@ -21,6 +21,7 @@ import IngredientPage from '../../pages/ingredientPage/ingredientPage';
 import FeedOrders from '../../pages/feed/feed';
 import ProfileOrders from '../../pages/profileOrders/profileOrders';
 import OrderPage from '../../pages/orderPage/OrderPage';
+import BurgerDetails from '../BurgerDetails/BurgerDetails';
 import { checkAuth } from '../../services/actions/user';
 import { RESET_MODAL } from '../../services/actions/ingredientDetails';
 
@@ -31,7 +32,10 @@ function App() {
   const access = getCookie("accessToken")
 
   const location = useLocation();
-  const background = location.state?.locationIngredient || location;
+  const background = location.state?.locationIngredient || 
+                     location.state?.locationOrderFeed ||
+                     location.state?.locationProfileOrderFeed ||
+                     location;
 
   const userInfo = useSelector((state) => state.userRequestReducer.userInfo);
 
@@ -71,6 +75,24 @@ function App() {
               <IngredientDetails />
             </Modal> }>
           </Route>
+        </Routes>
+      )}
+      {location.state?.locationOrderFeed && (
+        <Routes>
+          <Route path="/feed/:id" element={
+            <Modal title="Детали бургера" closeModal={closeModal} route>
+              <BurgerDetails />
+            </Modal>
+          } />
+        </Routes>
+      )}
+      {location.state?.locationProfileOrderFeed && (
+        <Routes>
+          <Route path="/profile/orders/:id" element={
+            <Modal title="Детали бургера" closeModal={closeModal} route>
+              <BurgerDetails />
+            </Modal>
+          } />
         </Routes>
       )}
 

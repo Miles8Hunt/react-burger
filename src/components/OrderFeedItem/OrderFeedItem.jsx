@@ -1,7 +1,7 @@
 import styles from './OrderFeedItem.module.css';
 import OrderIconesList from '../OrderIconesList/OrderIconesList';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState  } from 'react';
 import { useOrderData } from '../../utils/useOrderData';
 import PropTypes from 'prop-types';
@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 function OrderFeedItem({ order }) {
   
   const [isProfile, setIsProfile] = useState(false);
-
+  const location = useLocation();
   const { orderIngredients, orderStatus, orderPrice, matchProfile } = useOrderData(order);
 
 
@@ -23,7 +23,9 @@ function OrderFeedItem({ order }) {
   return (
     <article className={Boolean(matchProfile) ? `${styles.profileOrder}` : `${styles.order}`}>
 
-      <Link className={styles.link}  to={isProfile ? `/profile/orders/${order._id}` : `/feed/${order._id}`}>
+      <Link className={styles.link}  
+            to={isProfile ? `/profile/orders/${order._id}` : `/feed/${order._id}`}
+            state={isProfile ? { locationProfileOrderFeed: location } : { locationOrderFeed: location }} >
         <div className={`${styles.info} mb-6`}>
           <p className={'text text_type_digits-default'}>#{order.number}</p>
         </div>

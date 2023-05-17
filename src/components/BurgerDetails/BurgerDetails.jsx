@@ -14,6 +14,7 @@ function BurgerDetails() {
   const { orderIngredients, orderStatus, orderPrice } = useOrderData(order);
 
   return (
+    order && (
     <div className={styles.main}>
       <div className={styles.title}>
         <p className={`${styles.number} text text_type_digits-default mb-10`}>{`#${order.number}`}</p>
@@ -31,6 +32,7 @@ function BurgerDetails() {
         </div>
       </div>
     </div>
+    )
   );
 }
 

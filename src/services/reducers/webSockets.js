@@ -15,6 +15,7 @@ export const wsReducer = (state = initialState, action) => {
     case WS_CONNECTION_SUCCESS: 
       return {
         ...state,
+        error: undefined,
         wsConnected: true
       };
     case WS_CONNECTION_ERROR:

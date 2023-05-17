@@ -6,5 +6,5 @@
   left: 0;
   display: flex;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 2;
+  z-index: 20;
 }
