@@ -24,7 +24,7 @@ const ProfileNavigate = () => {
 
         <p className='text text_type_main-medium '> Профиль </p>
       </NavLink>
-      <NavLink to='/profile/feed' 
+      <NavLink to='/profile/orders' 
                className={() =>
                classNames(`${navigate.pathname === '/profile/orders' ? styles.elementActive
                : styles.elementDisactive}`)}>

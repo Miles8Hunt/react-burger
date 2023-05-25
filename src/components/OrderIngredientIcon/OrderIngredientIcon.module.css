@@ -1,0 +1,33 @@
+.item {
+  margin-left: -15px;
+  width: 64px;
+  height: 64px;
+  background: #131316;
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid #801AB2;
+  box-sizing: border-box;
+}
+.item:first-child {
+  margin: 0;
+}
+
+.image {
+  width: 112px;
+  height: 56px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  z-index: 2;
+
+}
+
+.text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}

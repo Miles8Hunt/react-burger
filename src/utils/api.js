@@ -2,6 +2,7 @@ import { getCookie, setCookie } from '../utils/cookies';
 
 
 const BASE_URL = 'https://norma.nomoreparties.space/api';
+const WS_URL = 'wss://norma.nomoreparties.space/orders';
 
 function parseResponse(res) {
   if (res.ok) {
@@ -16,8 +17,6 @@ function request(url, options) {
   // принимает два аргумента: урл и объект опций, как и `fetch`
   return fetch(url, options).then(parseResponse)
 }
-
-
 
 export const refreshToken = () => {
 
@@ -67,4 +66,4 @@ const getUserApi = () => {
 };
 
 
-export { BASE_URL, request, getUserApi, parseResponse }
+export { BASE_URL, WS_URL, request, getUserApi, parseResponse }

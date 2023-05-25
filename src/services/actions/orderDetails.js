@@ -5,7 +5,7 @@ export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 
-export const getOrderNumber = (constructor, setModalData) => {
+export const getOrderNumber = (constructor, accessToken, setModalData) => {
   return function (dispatch) {
     dispatch({
       type: GET_ORDER_REQUEST,
@@ -13,8 +13,8 @@ export const getOrderNumber = (constructor, setModalData) => {
     request(`${BASE_URL}/orders`, {
       method: 'POST',
       headers: {
-        
         'Content-Type': 'application/json',
+        "Authorization": accessToken,
       },
       body: JSON.stringify(constructor)
     })
