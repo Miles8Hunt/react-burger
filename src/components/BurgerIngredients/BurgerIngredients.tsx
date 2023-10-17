@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import { mergeRefs } from 'react-merge-refs';
 import { FC } from 'react';
 import { useSelector } from '../../services/types/types';
-import { IIngredient } from '../../services/types/types';
+//import { IIngredient } from '../../services/types/types';
 
 
 const BurgerIngredients: FC = () => {
@@ -90,7 +90,7 @@ const BurgerIngredients: FC = () => {
         <h2 ref={mergeRefs([bun, bunRef])} className="text text_type_main-medium">Булки</h2> 
         <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`}>
           {
-            ingredients.map((ingredient: IIngredient) => {
+            ingredients.map((ingredient) => {
               if(ingredient.type === 'bun')
               return (
                 <IngredientsItem key={ingredient._id} ingredient={ingredient} />   
@@ -102,7 +102,7 @@ const BurgerIngredients: FC = () => {
         <h2 ref={mergeRefs([sauce, sauceRef])} className="text text_type_main-medium">Соусы</h2>
         <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`}>
           {
-            ingredients.map((ingredient: IIngredient) => {
+            ingredients.map((ingredient) => {
               if(ingredient.type === 'sauce')
               return (
                 <IngredientsItem key={ingredient._id} ingredient={ingredient} /> 
@@ -114,7 +114,7 @@ const BurgerIngredients: FC = () => {
         <h2 ref={mergeRefs([main, mainRef])} className="text text_type_main-medium">Начинки</h2>
         <ul className={`${styles.container} mt-6 ml-4 mb-10 mr-2`}> 
           {
-            ingredients.map((ingredient: IIngredient) => {
+            ingredients.map((ingredient) => {
               if(ingredient.type === 'main')
               return (
                 <IngredientsItem key={ingredient._id} ingredient={ingredient} /> 

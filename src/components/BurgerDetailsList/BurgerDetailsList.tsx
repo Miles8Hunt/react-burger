@@ -15,12 +15,14 @@ const BurgerDetailsList: FC<IBurgerDetailsList> = ({ ingredients }) => {
     })
     return counter;
   }
+
+  const ingredientsList = Array.from(new Set(ingredients));
   
   return (
     <div className={styles.container}>
       <p className='text text_type_main-medium mb-6'>Состав:</p>
       <ul className={styles.list}>
-        {ingredients.map((ingredient, index) => {
+        {ingredientsList.map((ingredient, index) => {
           return (
             <BurgerDetailsItem counter={counter(ingredient)} ingredient={ingredient} key={index} />
           )

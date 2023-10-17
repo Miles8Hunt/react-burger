@@ -1,5 +1,4 @@
 import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED, OPEN_INGREDIENT_INFO } from '../actions/burgerIngredients';
-export const SELECT_INGREDIENT = 'SELECT_INGREDIENT';
 import { TIngredientsActions } from '../types/types';
 import { IIngredient } from '../types/types';
 

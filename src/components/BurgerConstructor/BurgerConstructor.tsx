@@ -38,7 +38,7 @@ const BurgerConstructor: FC = () => {
   const constructor = {
     "ingredients": [ 
       addedIngredients.bun._id,
-      ...addedIngredients.ingredients.map((ingredient: IIngredient) => ingredient._id),
+      ...addedIngredients.ingredients.map((ingredient) => ingredient._id),
       addedIngredients.bun._id
     ]
   };

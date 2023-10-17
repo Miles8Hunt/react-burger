@@ -62,8 +62,8 @@ const App: FC = () => {
         <Route path='/feed' element={<FeedOrders />} />
         <Route path="*" element={<Notfound404 />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
-        <Route path='/feed/:id' element={<OrderPage isLogin={false} />} />
-        <Route path='/profile/orders/:id' element={(!userInfo && !access) ? <Login /> : <OrderPage isLogin={true} />} />
+        <Route path='/feed/:id' element={<OrderPage isLogin={false} getIngredients={getIngredients} />} />
+        <Route path='/profile/orders/:id' element={(!userInfo && !access) ? <Login /> : <OrderPage isLogin={true} getIngredients={getIngredients} />} />
 
       </Routes>
 

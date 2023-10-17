@@ -23,7 +23,7 @@ const Modal: FC<IModal> = ({ closeModal, children, route }) => {
   }
 
   React.useEffect(() => {
-    function closeModalByEsc (evt: {key: string}) {
+    function closeModalByEsc (evt: KeyboardEvent) {
       evt.key === "Escape" && handleClose();
     };
     document.addEventListener('keydown', closeModalByEsc)

@@ -34,7 +34,11 @@ const AppHeader: FC = () => {
 
         </NavLink>
       </nav>
-      <Logo />  
+
+      <NavLink to='/' >
+        <Logo />
+      </NavLink>
+
       <NavLink to='/profile' 
                className={({ isActive }) =>
                classNames(styles.link, styles.account, { 'text_color_inactive': !isActive },

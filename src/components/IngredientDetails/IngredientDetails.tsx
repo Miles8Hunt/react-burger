@@ -2,14 +2,14 @@ import styles from './IngredientDetails.module.css';
 import { useParams } from 'react-router-dom';
 import { FC } from 'react';
 import { useSelector } from '../../services/types/types';
-import { IIngredient } from '../../services/types/types';
+//import { IIngredient } from '../../services/types/types';
 
 
 const IngredientDetails: FC = () => {
 
   const { id }  = useParams();
   const ingredients = useSelector((state) => state.burgerIngredientsReducer.ingredients);
-  const ingredient = ingredients.find((el: IIngredient) => el._id === id);
+  const ingredient = ingredients.find((el) => el._id === id);
 
   return (
     <>
