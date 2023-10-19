@@ -13,24 +13,25 @@ import { useSelector, useDispatch } from '../../services/types/types';
 const ProfileOrders: FC = () => {
 
   const dispatch = useDispatch();
-  const accessToken = getCookie("accessToken")/*.split("Bearer ")[1]*/;
+  const accessToken = getCookie("accessToken")?.split("Bearer ")[1];
   const { orders, error } = useSelector((state) => state.wsReducer);
   
   useEffect(() => {
     dispatch(wsConnectionStart(`${WS_URL}?token=${accessToken}`))
-  }, [dispatch, accessToken])
+    return () => {
+      dispatch(wsConnectionClosed());
+    };
+  }, [])
 
   useEffect(() => {
+    const accessToken = getCookie("accessToken")?.split("Bearer ")[1];
     if (error) {
       dispatch(wsConnectionClosed());
       dispatch(getUser())
         .then(() => dispatch(wsConnectionStart(`${WS_URL}?token=${accessToken}`)))
         .catch(() => dispatch(wsConnectionClosed()));
     }
-    return () => {
-      dispatch(wsConnectionClosed());
-    };
-  }, [dispatch, accessToken, error]);
+  }, [ error ]);
 
   return (
     orders && 

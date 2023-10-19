@@ -47,7 +47,7 @@ export const getUser = () => (dispatch: AppDispatch) => {
 export const checkAuth = () => (dispatch: AppDispatch) => {
   if(getCookie('accessToken')) {
     dispatch(getUser())
-      .then(() => {
+      .finally(() => {
         dispatch ({
           type: AUTH_CHECKED
         })

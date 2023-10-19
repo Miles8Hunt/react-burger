@@ -10,7 +10,7 @@ import { FC } from 'react';
 import { useSelector, useDispatch, IOrderPage } from '../../services/types/types';
 
 
-const OrderPage: FC<IOrderPage> = ({ isLogin, getIngredients }) => {
+const OrderPage: FC<IOrderPage> = ({ isLogin }) => {
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -18,9 +18,9 @@ const OrderPage: FC<IOrderPage> = ({ isLogin, getIngredients }) => {
   const order = orders.find((item) => item._id === id);
 
   useEffect(() => {
-    getIngredients();
+    const accessToken = getCookie("accessToken")?.split("Bearer ")[1];
     isLogin
-      ? dispatch(wsConnectionStart(`${WS_URL}?token=${getCookie("accessToken")/*.split("Bearer ")[1]*/}`))
+      ? dispatch(wsConnectionStart(`${WS_URL}?token=${accessToken}`))
       : dispatch(wsConnectionStart(`${WS_URL}/all`));
     return () => {
       dispatch(wsConnectionClosed());

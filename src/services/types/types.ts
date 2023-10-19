@@ -426,7 +426,6 @@ export interface IProtectRoute {
 
 export interface IOrderPage {
   isLogin: boolean;
-  getIngredients: () => void;
 };
 
 export interface IIngredientDetailsInitialState {
